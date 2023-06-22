@@ -12,7 +12,7 @@ from logfire.uploader import Uploader
 
 
 class TestFlushWorker(unittest2.TestCase):
-    host = 'https://apibeta2.logfire.sh/logfire.sh'
+    host = 'https://in.logfire.sh'
     source_token = 'dummy_source_token'
     buffer_capacity = 5
     flush_interval = 2
