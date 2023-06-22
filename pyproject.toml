@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "logfire-python"
-version = "0.0.1"
+version = "0.0.7"
 description = "Logfire.sh client library"
 readme = "README.md"
 authors = [{ name = "Logfire", email = "support@logfire.sh" }]
@@ -22,6 +22,8 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 keywords = ["api", "logfire", "logging", "client"]
