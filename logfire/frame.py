@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import print_function, unicode_literals
 from datetime import datetime
+import json
 
 from os import path
 import __main__
@@ -8,7 +9,7 @@ import __main__
 def create_frame(record, message, context, include_extra_attributes=False):
     r = record.__dict__
     frame = {}
-    # Python 3 only solution if we ever drop Python 2.7
+    # Python 3 only solution if we ever drop Python 2.7.
     # frame['dt'] = datetime.utcfromtimestamp(r['created']).replace(tzinfo=timezone.utc).isoformat()
     frame['dt'] = "{}+00:00".format(datetime.utcfromtimestamp(r['created']).isoformat())
     frame['level'] = level = _levelname(r['levelname'])
@@ -48,13 +49,25 @@ def _parse_custom_events(record, include_extra_attributes):
         'message', 'msg', 'name', 'pathname', 'process', 'processName',
         'relativeCreated', 'thread', 'threadName'
     }
+    extra_keys = {
+        'filename', 'stack_info'
+    }
     events = {}
+    extra = {}
     for key, val in record.__dict__.items():
         if key in default_keys:
             continue
         if not include_extra_attributes and not isinstance(val, dict):
             continue
-        events[key] = val
+        if key not in extra_keys:
+            if isinstance(val, str):
+                extra[key] = val
+            else:
+                extra[key] = json.dumps(val)
+        else:
+            events[key] = val
+    if extra :
+        events["extra"] = extra
     return events
 
 
